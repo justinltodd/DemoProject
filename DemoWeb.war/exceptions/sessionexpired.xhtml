@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition template="/templates/common-layout.xhtml"
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"> 
+
+
+    <h:head>
+        <title>#{messages.SessionExpired}&#160;#{messages.AppName}</title>
+    </h:head>
+
+    	<ui:define name="title">Expired</ui:define>
+			<ui:define name="content">
+		        <div class="container ">
+		
+		            <section class="error-wrapper text-center" style="padding-top:150px !important; color: #666666 !important;">
+		                <div class="error-desk" style="background: rgba(0,0,0,0.05) !important;">
+		                    <h2>Session expired!</h2>
+		                    <br></br>
+		                    <p class="">Your session has expired due to inactivity.</p>                 
+		                </div>
+		                <link value="Back To Login" class="back-btn" style="color:black !important;background-color: white !important;" outcome="index.xhtml" >
+		
+		                    <i class="fa fa-home"></i> </link>
+		            </section>		
+		        </div>
+		</ui:define>
+</ui:composition>

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition template="templates/common-layout.xhtml"
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+      
+
+<ui:define name="title">Students</ui:define>
+<ui:define name="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+					<h:form styleClass="form-horizontal">
+						<div class="form-group">
+							<h:outputLabel value="First Name" styleClass="control-label col-sm-2" />
+							<div class="col-sm-10">
+								<h:inputText id="firstname" value="#{studentMB.firstName}" p:placeholder="First Name" styleClass="form-control" required="true" requiredMessage="Please enter First Name" />
+								<h:message for="firstname" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Last Name" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="lastname" value="#{studentMB.lastName}" p:placeholder="Last Name" styleClass="form-control" required="true" requiredMessage="Please enter Last Name" />
+								<h:message for="lastname" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Grade" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="standard" value="#{studentMB.standard}" p:placeholder="Grade" styleClass="form-control" required="true" requiredMessage="Please enter Grade"/>
+								<h:message for="standard" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<c:choose>
+									<c:when test="#{studentMB.id > 0 }">
+										<h:inputHidden value="#{studentMB.id}" />
+										<h:commandButton action="#{studentMB.updateStudent()}" value="Update" styleClass="btn btn-default"/>
+									</c:when>
+									<c:otherwise>
+										<h:commandButton action="#{studentMB.createStudent()}" value="Create" styleClass="btn btn-default"/>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+					</h:form>
+					<table id="students" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Grade</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="stud" value="#{studentMB.getAllStudents()}">
+								<tr>
+									<td>#{stud.firstName} #{stud.lastName}</td>
+									<td>#{stud.standard}</td>
+									<td>
+										<h:form>
+											<h:commandLink action="#{studentMB.getStudent(stud.id)}" >
+												<i class="glyphicon glyphicon-edit"></i>
+											</h:commandLink>
+										</h:form>
+									</td>
+									<td>
+										<h:form>
+											<h:commandLink action="#{studentMB.deleteStudent(stud.id)}">
+												<i class="glyphicon glyphicon-trash"></i>
+											</h:commandLink>
+										</h:form>
+									</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+			</div>
+		</div>
+	  </div>
+	</ui:define>
+</ui:composition>

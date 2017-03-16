@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition template="templates/common-layout.xhtml"	  
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"> 
+
+
+
+<ui:define name="title">Users</ui:define>
+<ui:define name="content">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+					<h:form styleClass="form-horizontal">
+						<div class="form-group">
+							<h:outputLabel value="First Name" styleClass="control-label col-sm-2" />
+							<div class="col-sm-10">
+								<h:inputText id="firstname" value="#{usersMB.firstName}" p:placeholder="First Name" styleClass="form-control" required="true" requiredMessage="Please enter First Name" />
+								<h:message for="firstname" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Last Name" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="lastname" value="#{usersMB.lastName}" p:placeholder="Last Name" styleClass="form-control" required="true" requiredMessage="Please enter Last Name" />
+								<h:message for="lastname" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Email" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="email" value="#{usersMB.email}" p:placeholder="Email" styleClass="form-control" required="true" requiredMessage="Please enter Email"/>
+								<h:message for="email" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Company" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="company" value="#{usersMB.company}" p:placeholder="Company" styleClass="form-control" required="true" requiredMessage="Please enter Company"/>
+								<h:message for="company" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Password" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="password" value="#{usersMB.password}" p:placeholder="Password" styleClass="form-control" required="true" requiredMessage="Please enter Password"/>
+								<h:message for="password" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Confirm Password" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="passwordconfirm" value="#{usersMB.passwordConfirm}" p:placeholder="Confirm Password" styleClass="form-control" required="true" requiredMessage="Please enter Password to your confirm"/>
+								<h:message for="passwordconfirm" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Role" styleClass="control-label col-sm-2"/>
+							<div class="col-sm-10">
+								<h:inputText id="role" value="#{usersMB.role}" p:placeholder="Role" styleClass="form-control" required="true" requiredMessage="Please enter your Role" />
+								<h:message for="role" errorStyle="color:red; display:block"></h:message>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<c:choose>
+									<c:when test="#{usersMB.id > 0 }">
+										<h:inputHidden value="#{usersMB.id}" />
+										<h:commandButton action="#{usersMB.updateUsers()}" value="Update" styleClass="btn btn-default"/>
+									</c:when>
+									<c:otherwise>
+										<h:commandButton action="#{usersMB.createUsers()}" value="Create" styleClass="btn btn-default"/>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						</h:form>
+						<table id="users" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Company</th>
+								<th>Email</th>
+								<th>Password</th>
+								<th>Confirm</th>
+								<th>Role</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="user" value="#{usersMB.getAllUsers()}">
+								<tr>
+									<td>#{user.firstName} #{user.lastName}</td>
+									<td>#{user.company}</td>
+									<td>#{user.email}</td>
+									<td>#{user.password}</td>
+									<td>#{user.passwordConfirm}</td>
+									<td>#{user.role}</td>
+									<td>
+										<h:form>
+											<h:commandLink action="#{usersMB.getUsers(user.id)}" >
+												<i class="glyphicon glyphicon-edit"></i>
+											</h:commandLink>
+										</h:form>
+									</td>
+									<td>
+										<h:form>
+											<h:commandLink action="#{usersMB.deleteUsers(user.id)}">
+												<i class="glyphicon glyphicon-trash"></i>
+											</h:commandLink>
+										</h:form>
+									</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+			</div>
+		</div>
+	  </div>
+	</ui:define>
+
+					
+						
+						
+						
+						
+						
+						
+
+</ui:composition>
